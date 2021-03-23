@@ -23,7 +23,19 @@ class RegisterFactory
     public function renderForm()
     {
         $form = $this->forms->create();
-            
+           
+        $form->addText('nickname', 'Nickname:')
+            ->addRule($form::MIN_LENGTH, 'Nickname has to be minimum of %d letters', 2)
+            ->addRule(
+                function ($item) {
+                    if ($this->user->getNicknameValue($item->value)) {
+                        return false;
+                    }
+                    return true;
+                }, "This Nickname is already taken"
+            )
+            ->setRequired(self::FORM_MSG_REQUIRED)
+            ->setHtmlAttribute('class', 'form-control');
         $form->addText('f_name', 'First Name:')
             ->addRule($form::MIN_LENGTH, 'Name has to be minimum of %d letters', 2)
             ->setRequired(self::FORM_MSG_REQUIRED)

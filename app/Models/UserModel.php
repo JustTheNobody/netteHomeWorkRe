@@ -23,10 +23,10 @@ class UserModel implements Authenticator
         $this->passwords = $passwords;
     }
 
-    public function authenticate(string $username, string $password): SimpleIdentity
+    public function authenticate(string $nickname, string $password): SimpleIdentity
     {   
         $row = $this->database->table('users')
-            ->where('firstname', $username)
+            ->where('nickname LIKE ?', $nickname)
             ->fetch();
 
         if (!$row) {
@@ -54,7 +54,7 @@ class UserModel implements Authenticator
         return new SimpleIdentity(
             $row->id,
             ['role' => 'user'],
-            ['name' => $row->firstname]
+            ['name' => $row->firstname, 'nickname' => $row->nickname]
         );
     }
 
@@ -65,7 +65,8 @@ class UserModel implements Authenticator
                 'email' => $values->email,
                 'firstname' => $values->f_name,
                 'lastname' => $values->l_name,
-                'passwords' => $values->password ]
+                'passwords' => $values->password,
+                'nickname' => $values->nickname]
             );
             // return auto-increment of the inserted row
             return $this->database->getInsertId();
@@ -74,5 +75,10 @@ class UserModel implements Authenticator
     public function getValue($email)
     {
         return $this->database->fetchField('SELECT email FROM users WHERE email = ?', $email);
+    }
+
+    public function getNicknameValue($nickname)
+    {
+        return $this->database->fetchField('SELECT nickname FROM users WHERE nickname = ?', $nickname);
     }
 }

@@ -23,7 +23,7 @@ class LoginFactory //extends CustomFormFactory
     {
         $form = $this->forms->create();
 
-        $form->addText('f_name', 'First Name:')
+        $form->addText('nickname', 'Nickname:')
             ->setRequired(self::FORM_MSG_REQUIRED)
             ->addRule($form::MIN_LENGTH, 'Name has to be minimum of %d letters', 2)
             ->setHtmlAttribute('class', 'form-control');
