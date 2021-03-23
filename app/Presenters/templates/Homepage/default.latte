@@ -1,0 +1,49 @@
+{block content}
+<h3 n:ifset=$result>Welcome {$result}</h3>
+<div class="divCenter" id="content">
+    <div>    
+        {if $article[0] != 'No Article'}
+            <h2>The last added Article</h2>
+            <div class="article">
+            {foreach $article[0] as $key => $value}
+                {if ($key == "article_id" || $key == "user_id")}
+                {else}
+                <div class="titleBox">{$key}:</div>
+                <div class="{$key}"> {$value}</div>
+                {/if}
+            {/foreach}
+            </div>
+            <div class="button"><a href="/article">Article archive</a></div>
+        {else}
+            <div class="article">
+                <div class="noArticle">
+                    <h2>There is no an Article in here yet.</h2>
+                    <p>Be the first one to type in some! 
+                        <div class="button">
+                            <a n:href="Article:add">Add Article</a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        {/if} 
+    </div>
+    <pre>
+    </pre>
+    <div>
+        <p>
+        <h3>Bod 1</h3>
+            <ul>
+                <li>Registrace uživatele</li>
+                <li>Přihlášení uživatele</li>
+                <li>Vypsání jména uživatele po přihlášení</li>
+            </ul>
+        <h3>Bod 2</h3>
+            <ul>
+                <li>Poslední přidaný Článek je zobazen na hlavní straně, pokud teda je nějáký v DB</li>
+                <li>Všechny Článeky se zobrazí po kliku na <span>Article archive</span> v horním menu</li>
+                <li>Přidat Článek může pouze registovaný uživatel a to klikem na <span>Add Article</span> v horním menu (viditelný po přihlášení)</li>
+                <li><span>Editovat</span> / <span>Mazat</span> přízpěvek může pouze tvůrce přízpěvku</li>
+            <ul>
+        </p>
+    </div>
+</div>
