@@ -38,7 +38,7 @@ final class LoginPresenter extends Presenter //implements Authorizator
 
     public function loginFormSucces(ArrayHash $values)
     {
-        $result = $this->user->authenticate($values->f_name, $values->password);
+        $result = $this->user->authenticate($values->nickname, $values->password);
         
         if ($result->id == 'fail' ) {
             $this->flashMessage('Invalid '. $result->roles[0], 'fail');
